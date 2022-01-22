@@ -1,11 +1,14 @@
 import React from 'react'
-import { useState,useEffect } from 'react'
+import { useState,useEffect,useContext } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import { useNavigate,useParams } from 'react-router-dom';
+import {stuContext} from '../App';
 
-function EditStudent( props) {
+function EditStudent() {
     
+    const stuData = useContext(stuContext);
+
     const params = useParams();
     const nav = useNavigate('');
     const [name, setname] = useState("");
@@ -15,14 +18,14 @@ function EditStudent( props) {
 
     const handleSubmit = () => {
         let newData = { name, mobile, email, cls };
-        let replicateArray = [...props.data.stu];
+        let replicateArray = [...stuData.stu];
         replicateArray.splice(params.id,1,newData)
-        props.data.setStu(replicateArray);
+        stuData.setStu(replicateArray);
         nav("/all-students")
     }
 
     useEffect(()=>{
-        if(params.id<props.data.stu.length
+        if(params.id < stuData.stu.length
             &&params.id>=0)
         getData();
     else
@@ -31,10 +34,10 @@ function EditStudent( props) {
     ,[])
 
     const getData= ()=>{
-    setname(props.data.stu[params.id].name);
-    setemail(props.data.stu[params.id].email);
-    setmobile(props.data.stu[params.id].mobile);
-    setcls(props.data.stu[params.id].cls);
+    setname(stuData.stu[params.id].name);
+    setemail(stuData.stu[params.id].email);
+    setmobile(stuData.stu[params.id].mobile);
+    setcls(stuData.stu[params.id].cls);
     }
 
     return (

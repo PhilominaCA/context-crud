@@ -9,9 +9,13 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import { useState } from 'react';
+import React ,{ useState } from 'react';
+
+//1. create context
+export const stuContext = React.createContext();
 
 function App() {
+
    const [stu, setStu] = useState([{
 name:"Mark",
 mobile:"9829389849",
@@ -28,20 +32,24 @@ cls:"BW98WE"
    email:"larry@mail.com",
    cls:"BW67WE"}
 ]);
+
   return (
     <BrowserRouter>
+    {/* 2.context provider */}
+<stuContext.Provider value={{stu,setStu}}>
     <div className="App" >
     <div> <Sidebar/></div>
     <div className='Content-div'>
     <Routes>
       <Route path='/dashboard' element={<Dashboard/>}/>
-      <Route path='/all-students' element={<AllStudents data={{stu,setStu}}/>}/>
-      <Route path='/add-students' element={<AddStudents data={{stu,setStu}}/>}/>
-      <Route path='/edit-students/:id' element={<EditStudent data={{stu,setStu}}/>}/>
+      <Route path='/all-students' element={<AllStudents/>}/>
+      <Route path='/add-students' element={<AddStudents/>}/>
+      <Route path='/edit-students/:id' element={<EditStudent/>}/>
       <Route path='/' element={<Dashboard/>}/>
     </Routes>
     </div>
     </div>
+    </stuContext.Provider>
 </BrowserRouter>
   );
 }

@@ -1,11 +1,13 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState,useContext } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
+import { stuContext } from '../App';
 
-function AddStudents(props) {
-    console.log(props.data);
+function AddStudents() {
+
+    const stuData = useContext(stuContext);
     const nav = useNavigate('');
     const [name, setname] = useState("");
     const [email, setemail] = useState("");
@@ -14,7 +16,7 @@ function AddStudents(props) {
 
     const handleSubmit = () => {
         let newData = { name, mobile, email, cls };
-        props.data.setStu([...props.data.stu, newData]);
+        stuData.setStu([...stuData.stu, newData]);
         nav("/all-students")
     }
     return (

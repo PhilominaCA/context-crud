@@ -1,19 +1,20 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import { Table,Button } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
+import {stuContext} from '../App';
 
-
-function AllStudents(props) {
+function AllStudents() {
+//subscribing context
+    const stuData = useContext(stuContext);
 
   const handleDelete = (id) =>{
-      let replicateArray=[...props.data.stu];
+      let replicateArray=[...stuData.stu];
       replicateArray.splice(id,1)
-    props.data.setStu(replicateArray);
+      stuData.setStu(replicateArray);
   }
 
     return (
         <div>
-            {console.log(props)}
             <h2>All Student Records</h2>
             <hr/>
             <Table striped bordered hover variant="dark">
@@ -30,7 +31,7 @@ function AllStudents(props) {
                 </thead>
                 <tbody>
                     {
-                        props.data.stu.map((e, i) => {
+                        stuData.stu.map((e, i) => {
                             return <tr key={i}>
                                 <td>{i + 1}</td>
                                 <td>{e.name}</td>
